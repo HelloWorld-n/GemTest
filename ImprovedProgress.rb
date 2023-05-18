@@ -211,8 +211,7 @@ class ImprovedProgress
                 else
                     valid_pos.sample()
                 end
-                @data[:value][pos] = 
-                (
+                @data[:value][pos] = (
                     @data[:sequence][
                         @data[:sequence].index(@data[:value][pos]) + 1
                     ]
