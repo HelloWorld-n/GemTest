@@ -204,14 +204,15 @@ class ImprovedProgress
                         valid_pos.push(pos)
                     end
                 end
-                pos = valid_pos.sample()
-                if @selection_pool == :first
-                    pos = valid_pos[0]
-                end
-                if @selection_pool == :last
+                pos = if @selection_pool == :first
+                    valid_pos[0]
+                elsif @selection_pool == :last
                     valid_pos[-1]
+                else
+                    valid_pos.sample()
                 end
-                @data[:value][pos] = (
+                @data[:value][pos] = 
+                (
                     @data[:sequence][
                         @data[:sequence].index(@data[:value][pos]) + 1
                     ]
