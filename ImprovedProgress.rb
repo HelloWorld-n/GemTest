@@ -74,8 +74,11 @@ class ImprovedProgress
             /([^A-Za-z])NINETEEN([^A-Za-z])/ => '\1NINTEEN\2',
         },
         {
-            /AND  / => "AND ZERO "
+            /AND  / => 'AND ZERO '
         },
+        {
+            /ZERO ([A-Z]*)/ => '\1'
+        }
     ]
     def self.num_to_words(
         num, 
@@ -92,7 +95,7 @@ class ImprovedProgress
         else
             []
         end
-        result = ""
+        result = " "
         digit_pos = 0
         for digit in num.digits
             digit_modifier = digit_modifiers[digit_pos % digit_modifiers.size()]
@@ -106,7 +109,7 @@ class ImprovedProgress
             else
                 ""
             end
-            result = "#{prefix}#{digit_names[digit]}#{suffix} #{result}"
+            result = " #{prefix}#{digit_names[digit]}#{suffix}#{result}"
             digit_pos += 1
         end
         for replacement in replacements
@@ -114,7 +117,7 @@ class ImprovedProgress
                 result.gsub!(replacement_key, replacement[replacement_key])
             end
         end
-        return result[..-2]
+        return result[1..-1]
     end
 
     class Counter
