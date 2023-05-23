@@ -117,7 +117,7 @@ class ImprovedProgress
                 result.gsub!(replacement_key, replacement[replacement_key])
             end
         end
-        return result[1..-1]
+        return result.strip
     end
 
     class Counter
