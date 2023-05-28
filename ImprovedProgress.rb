@@ -242,7 +242,7 @@ if __FILE__ == $0
         $stdout.clear_screen()
         print(
             "#{SyntaxUtil.syntax_string("time_utc", :variable)} = "\
-            "#{SyntaxUtil.syntax_string(Time.now.utc.strftime('"%Y-%m-%dT%H:%M:%S.%L"'), :string)}\n"\
+            "#{SyntaxUtil.syntax_string(Time.now.utc.strftime('"%Y-%m-%dT%H:%M:%S"'), :string)}\n"\
             "#{SyntaxUtil.syntax_string("count", :variable)} = "\
             "#{SyntaxUtil.syntax_string(counter.data[:count], :int)}\n"\
             "#{SyntaxUtil.syntax_string("value", :variable)} = "\
