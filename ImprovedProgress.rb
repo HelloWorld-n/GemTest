@@ -236,7 +236,7 @@ class ImprovedProgress
 end
 
 if __FILE__ == $0
-    counter = ImprovedProgress::Counter.new("#{File.dirname(__FILE__)}/Data/progress.json", selection_pool: :first)
+    counter = ImprovedProgress::Counter.new("#{File.dirname(__FILE__)}/Data/progress.json")
     delay = 0.0
     while true
         $stdout.clear_screen()
