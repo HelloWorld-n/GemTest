@@ -237,7 +237,7 @@ end
 
 if __FILE__ == $0
     counter = ImprovedProgress::Counter.new("#{File.dirname(__FILE__)}/Data/progress.json")
-    delay = 1 * rand(1.0..1.1)
+    delay = 0.0
     while true
         $stdout.clear_screen()
         print(
@@ -256,6 +256,6 @@ if __FILE__ == $0
         counter.increase()
         counter.save()
         sleep(delay)
-        delay += 0.02 * rand(1.0..1.1)
+        delay += (1.0 / counter.data[:count]) * rand(1.0..1.1)
     end
 end
