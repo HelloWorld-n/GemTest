@@ -121,7 +121,7 @@ class ImprovedProgress
     end
 
     class Counter
-        def initialize(file_path, number_alterations = nil, sequence = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", selection_pool = :all)
+        def initialize(file_path, number_alterations: nil, sequence: "ABCDEFGHIJKLMNOPQRSTUVWXYZ", selection_pool: :all)
             raise TypeError unless file_path.is_a? String
             @file_path = file_path
             @number_alterations = number_alterations
@@ -236,7 +236,7 @@ class ImprovedProgress
 end
 
 if __FILE__ == $0
-    counter = ImprovedProgress::Counter.new("#{File.dirname(__FILE__)}/Data/progress.json")
+    counter = ImprovedProgress::Counter.new("#{File.dirname(__FILE__)}/Data/progress.json", selection_pool: :first)
     delay = 0.0
     while true
         $stdout.clear_screen()
