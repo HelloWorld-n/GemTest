@@ -117,6 +117,10 @@ class ImprovedProgress
                 result.gsub!(replacement_key, replacement[replacement_key])
             end
         end
+        result = result.strip
+        if result == ""
+            result = digit_names[0]
+        end
         return result.strip
     end
 
@@ -256,6 +260,10 @@ if __FILE__ == $0
         counter.increase()
         counter.save()
         sleep(delay)
-        delay += (1.0 / counter.data[:count]) * rand(1.0..1.1)
+        delay_add = (1.0 / counter.data[:count])
+        if delay_add > 1.0
+            delay_add = 1.0
+        end
+        delay += delay_add * rand(1.0..1.1)
     end
 end
