@@ -261,8 +261,8 @@ if __FILE__ == $0
         counter.save()
         sleep(delay)
         delay_add = (1.0 / counter.data[:count])
-        if delay_add > 1.0
-            delay_add = 1.0
+        if delay_add > 2.5
+            delay_add = 2.5
         end
         delay += delay_add * rand(1.0..1.1)
     end
