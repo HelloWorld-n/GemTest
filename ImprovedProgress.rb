@@ -265,7 +265,16 @@ class ImprovedProgress
 end
 
 if __FILE__ == $0
-    counter = ImprovedProgress::Counter.new("#{File.dirname(__FILE__)}/Data/progress.json")
+    file = "#{File.dirname(__FILE__)}/Data/progress.json"
+    for argv in ARGV.each do
+        if argv == "--yaml"
+            file = "#{File.dirname(__FILE__)}/Data/progress.yaml"
+        end
+        if argv == "--json"
+            file = "#{File.dirname(__FILE__)}/Data/progress.json"
+        end
+    end
+    counter = ImprovedProgress::Counter.new(file)
     delay = 0.0
     while true
         $stdout.clear_screen()
