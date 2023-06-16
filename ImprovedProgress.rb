@@ -2,6 +2,7 @@
 require 'io/console'
 require 'fileutils'
 require 'pathname'
+require 'yaml'
 
 require_relative 'SyntaxUtil'
 require_relative 'ParserThing'
@@ -74,10 +75,13 @@ class ImprovedProgress
             /([^A-Za-z])NINETEEN([^A-Za-z])/ => '\1NINTEEN\2',
         },
         {
-            /AND  / => 'AND ZERO '
+            /AND  (KILO|MEGA|GIGA|TERA|PETA|EXA|ZETTA|YOTTA|RONNA|QUETTA)/ => 'AND ZERO \1'
         },
         {
-            /ZERO ([A-Z]*)/ => '\1'
+            /ZERO HUNDRED/ => '\1'
+        },
+        {
+            /  / => ' '
         }
     ]
     def self.num_to_words(
@@ -125,12 +129,27 @@ class ImprovedProgress
     end
 
     class Counter
-        def initialize(file_path, number_alterations: nil, sequence: "ABCDEFGHIJKLMNOPQRSTUVWXYZ", selection_pool: :all)
+        def initialize(
+            file_path, 
+            number_alterations: nil, 
+            sequence: "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 
+            selection_pool: :all, 
+            mode: nil
+        )
+            <<-__PARAMS__
+                sequence => String%{each char is unique}
+                selection_pool => %Literal[:all, :first, :last]
+                mode => %Literal[:json, :yaml]
+               __PARAMS__
             raise TypeError unless file_path.is_a? String
             @file_path = file_path
             @number_alterations = number_alterations
             @sequence = sequence
             @selection_pool = selection_pool
+            @mode = mode
+            if @mode == nil
+                @mode = file_path.split("/")[-1].split(".")[-1].to_sym
+            end
             if @number_alterations != nil
                 goal = ImprovedProgress::num_to_words(0, number_alterations)
             else
@@ -233,7 +252,13 @@ class ImprovedProgress
         
         def save()
             File.open(@file_path, 'w') do |file|
-                file.write(@data.to_json)
+                if @mode == :yaml
+                    file.write(@data.transform_keys(&:to_s).to_yaml)
+                elsif @mode == :json
+                    file.write(@data.to_json)
+                else
+                    raise "Invalid @mode; excepted among [:yaml, :json]; got #{@mode}"
+                end
             end
         end
     end
