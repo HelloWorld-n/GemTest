@@ -266,7 +266,7 @@ end
 
 if __FILE__ == $0
     file = "#{File.dirname(__FILE__)}/Data/progress.json"
-    for argv in ARGV.each do
+    ARGV.each do |argv|
         if argv == "--yaml"
             file = "#{File.dirname(__FILE__)}/Data/progress.yaml"
         end
