@@ -255,7 +255,7 @@ class ImprovedProgress
                 if @mode == :yaml
                     file.write(@data.transform_keys(&:to_s).to_yaml)
                 elsif @mode == :json
-                    file.write(@data.to_json)
+                    file.write(JSON.pretty_generate(@data))
                 else
                     raise "Invalid @mode; excepted among [:yaml, :json]; got #{@mode}"
                 end
