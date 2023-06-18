@@ -268,20 +268,20 @@ if __FILE__ == $0
     delay = 0.0
     file = "#{File.dirname(__FILE__)}/Data/progress.json"
 
-    ARGV.each do |argv, argvs|
-        argvs = argv.split("=")
-
-        if argv == '--yaml'
-            file = "#{File.dirname(__FILE__)}/Data/progress.yaml"
-        end
-        if argv == '--json'
-            file = "#{File.dirname(__FILE__)}/Data/progress.json"
-        end
-        if argvs[0] == '--delay'
-            if argvs[1] == 'auto'
-                delay = :auto
-            else
-                delay = argvs[1].to_f
+    ARGV.each do |argv|
+        [argv.split("=")].each do |argvs|
+            if argv == '--yaml'
+                file = "#{File.dirname(__FILE__)}/Data/progress.yaml"
+            end
+            if argv == '--json'
+                file = "#{File.dirname(__FILE__)}/Data/progress.json"
+            end
+            if argvs[0] == '--delay'
+                if argvs[1] == 'auto'
+                    delay = :auto
+                else
+                    delay = argvs[1].to_f
+                end
             end
         end
     end
