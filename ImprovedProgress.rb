@@ -269,14 +269,14 @@ if __FILE__ == $0
     file = "#{File.dirname(__FILE__)}/Data/progress.json"
 
     ARGV.each do |argv|
-        if argv == "--yaml"
+        if argv == '--yaml'
             file = "#{File.dirname(__FILE__)}/Data/progress.yaml"
         end
-        if argv == "--json"
+        if argv == '--json'
             file = "#{File.dirname(__FILE__)}/Data/progress.json"
         end
-        if argv.split("=")[0] == "--delay"
-            delay = argv.split("=")[1].to_f
+        if argv.split('=')[0] == '--delay'
+            delay = argv.split('=')[1].to_f
         end
     end
     counter = ImprovedProgress::Counter.new(file)
