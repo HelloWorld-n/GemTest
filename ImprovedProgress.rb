@@ -268,8 +268,8 @@ if __FILE__ == $0
     delay = 0.0
     file = "#{File.dirname(__FILE__)}/Data/progress.json"
 
-    ARGV.each do |argv|
-        arg = argvs = argv.split("=")
+    ARGV.each do |argv, argvs|
+        argvs = argv.split("=")
 
         if argv == '--yaml'
             file = "#{File.dirname(__FILE__)}/Data/progress.yaml"
