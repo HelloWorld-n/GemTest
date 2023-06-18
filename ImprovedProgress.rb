@@ -286,7 +286,7 @@ if __FILE__ == $0
     end
     counter = ImprovedProgress::Counter.new(file)
     if delay == :auto
-        delay = counter.data[:count] ** 0.5
+        delay = counter.data[:count] ** Rational(1, 2)
     end
     while true
         $stdout.clear_screen()
