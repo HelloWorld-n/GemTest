@@ -269,7 +269,9 @@ if __FILE__ == $0
     file = "#{File.dirname(__FILE__)}/Data/progress.json"
 
     ARGV.each do |argv|
-        [argv.split("=")].each do |argvs|
+        [nil].each do |argvs|
+            argvs = argv.split("=")
+
             if argv == '--yaml'
                 file = "#{File.dirname(__FILE__)}/Data/progress.yaml"
             end
