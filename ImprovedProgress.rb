@@ -276,10 +276,18 @@ if __FILE__ == $0
             file = "#{File.dirname(__FILE__)}/Data/progress.json"
         end
         if argv.split('=')[0] == '--delay'
-            delay = argv.split('=')[1].to_f
+            delay_info = argv.split('=')[1]
+            if delay_info == 'auto'
+                delay = :auto
+            else
+                delay = delay_info.to_f
+            end
         end
     end
     counter = ImprovedProgress::Counter.new(file)
+    if delay == :auto
+        delay = counter.data[:count] ** 0.5
+    end
     while true
         $stdout.clear_screen()
         print(
