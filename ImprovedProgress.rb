@@ -139,7 +139,7 @@ class ImprovedProgress
             <<-__PARAMS__
                 sequence => String%{each char is unique}
                 selection_pool => %Literal[:all, :first, :last]
-                mode => %Literal[:json, :yaml]
+                mode => %Literal[:json, :yaml, nil]
                __PARAMS__
             raise TypeError unless file_path.is_a? String
             @file_path = file_path
@@ -245,7 +245,13 @@ class ImprovedProgress
             end
         end
     
-        def data()
+        def data(clone: true)
+            <<-__PARAMS__
+                clone => %Bool
+               __PARAMS__
+            if clone
+                return @data.clone
+            end
             return @data
         end
 
