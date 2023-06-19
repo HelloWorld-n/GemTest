@@ -272,6 +272,7 @@ end
 
 if __FILE__ == $0
     delay = 0.0
+    delay_auto_pow = Rational(1, 3)
     file = "#{File.dirname(__FILE__)}/Data/progress.json"
 
     ARGV.each do |argv|
@@ -287,6 +288,9 @@ if __FILE__ == $0
             if argvs[0] == '--delay'
                 if argvs[1] == 'auto'
                     delay = :auto
+                    if argvs.length > 2
+                        delay_auto_pow = argvs[2].to_f
+                    end
                 else
                     delay = argvs[1].to_f
                 end
@@ -295,7 +299,7 @@ if __FILE__ == $0
     end
     counter = ImprovedProgress::Counter.new(file)
     if delay == :auto
-        delay = counter.data[:count] ** Rational(1, 3)
+        delay = counter.data[:count] ** delay_auto_pow
     end
     while true
         $stdout.clear_screen()
