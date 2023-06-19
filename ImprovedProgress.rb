@@ -246,7 +246,7 @@ class ImprovedProgress
         end
     
         def data()
-            return @data
+            return @data.clone
         end
 
         
