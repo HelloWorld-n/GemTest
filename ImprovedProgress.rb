@@ -209,6 +209,15 @@ class ImprovedProgress
             return result
         end
 
+        def samefy_value_goal_sizes()
+            keys = [:value, :goal]
+            keys.permutation(2).to_a.each { |shorter, longer|
+                while @data[shorter].length < @data[longer].length
+                    @data[shorter] += @data[longer][@data[shorter].length]
+                end
+            }
+        end
+
         def increase()
             if @data[:value] == @data[:goal]
                 @data[:count] += 1
@@ -237,11 +246,24 @@ class ImprovedProgress
                 else
                     valid_pos.sample()
                 end
-                @data[:value][pos] = (
-                    @data[:sequence][
-                        @data[:sequence].index(@data[:value][pos]) + 1
-                    ]
+
+                samefy_value_goal_sizes()
+
+                if (
+                    @data[:sequence].include?(@data[:value][pos])\
+                and\
+                    @data[:sequence].include?(@data[:goal][pos])\
                 )
+                    @data[:value][pos] = (
+                        @data[:sequence][
+                            (
+                                @data[:sequence].index(@data[:value][pos]) + 1
+                            ) % @data[:sequence].length
+                        ]
+                    )
+                else
+                    @data[:value][pos] = @data[:goal][pos]
+                end
             end
         end
     
