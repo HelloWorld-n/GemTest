@@ -209,11 +209,10 @@ class ImprovedProgress
             return result
         end
 
-        def samefy_value_goal_sizes()
-            keys = [:value, :goal]
+        def samefy_string_in_hash_sizes(the_hash, keys)
             keys.permutation(2).to_a.each { |shorter, longer|
-                while @data[shorter].length < @data[longer].length
-                    @data[shorter] += @data[longer][@data[shorter].length]
+                while the_hash[shorter].length < the_hash[longer].length
+                    the_hash[shorter] += the_hash[longer][the_hash[shorter].length]
                 end
             }
         end
@@ -247,7 +246,7 @@ class ImprovedProgress
                     valid_pos.sample()
                 end
 
-                samefy_value_goal_sizes()
+                samefy_string_in_hash_sizes(@data, [:value, :goal])
 
                 if (
                     @data[:sequence].include?(@data[:value][pos])\
