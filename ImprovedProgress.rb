@@ -174,10 +174,15 @@ class ImprovedProgress
             if File.file?(file_path)
                 file = File.open(@file_path, 'r')
                 @data = ParserThing.parse_string(file.read())
+                data__properize_types()
                 file.close()
             else
                 FileUtils::mkdir_p(Pathname.new(file_path).dirname)
             end
+        end
+
+        def data__properize_types()
+            @data[:count] = @data[:count].to_i
         end
 
         def number_alterations__reset()
